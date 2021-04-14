@@ -1,47 +1,45 @@
 import { useState } from 'react'
 
 const AddTask = ({ onAdd }) => {
-  let date;
-	const [text, setText] = useState('')
-  const [day, setDay] = useState(new Date().toLocaleString() + '')
+  const [text, setText] = useState('')
+  const [day, setDay] = useState('')
   const [reminder, setReminder] = useState(false)
 
   const onSubmit = (e) => {
     e.preventDefault()
 
     if (!text) {
-      alert('Please add a comment')
+      alert('Please add a task')
       return
     }
-   date = new Date().toLocaleString() + '';
-   let text1;
-   document.addEventListener('mouseup', () => {
-    const selection = window.getSelection().toString();
-    if(selection !== '')
-      text1 = selection
-    });
-    console.log(text1)
-    onAdd({ text, day, reminder, text1 })
+
+    onAdd({ text, day, reminder })
 
     setText('')
-    setDay(new Date().toLocaleString() + '')
+    setDay('')
     setReminder(false)
   }
 
   return (
     <form className='add-form' onSubmit={onSubmit}>
       <div className='form-control'>
-        <label>Comment</label>
+        <label>Task</label>
         <input
           type='text'
-          placeholder='Add Comment'
+          placeholder='Add Task'
           value={text}
           onChange={(e) => setText(e.target.value)}
-          autoFocus
         />
       </div>
-
-     
+      <div className='form-control'>
+        <label>Day & Time</label>
+        <input
+          type='text'
+          placeholder='Add Day & Time'
+          value={day}
+          onChange={(e) => setDay(e.target.value)}
+        />
+      </div>
       <div className='form-control form-control-check'>
         <label>Set Reminder</label>
         <input
